@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="robots" content="noindex, nofollow" />
+
+	<title>Validação de Formulário</title>
+
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+	<style type="text/css">
+		h1{
+			text-align: center;
+			margin-bottom: 30px;
+		}
+
+		label{
+			display: block;
+		}
+
+		label.check{
+			display: block;
+			line-height: 1;
+			margin-bottom: 15px;
+		}
+
+		input,select{
+			width: 100%;
+			padding: 10px 8px;
+			margin-bottom: 20px;
+		}
+
+		select{
+			padding: 12px 8px;
+		}
+
+		input[type="submit"]{
+			padding: 8px 23px;
+		    width: auto;
+		    box-sizing: border-box;
+		    border: none;
+		    text-transform: uppercase;	
+		}
+
+		input[type="checkbox"]{
+			-webkit-appearance: none;
+			width: 0px;
+			height: 0px;
+			padding: 0px;
+			margin: 0px 25px 0px 0px;
+			font-size: 25px;
+			outline: none;
+		}
+
+		input[type="checkbox"]:focus {
+		    outline: 0;
+		}
+
+
+		input[type="checkbox"]::before{
+			content: '▢';
+			color: #FF5722;
+		}
+
+		input[type="checkbox"]:checked::before{
+			content: '▢✓';
+			letter-spacing: -17px;
+		}
+
+		/* Remove os padrões de cores automático do Google */
+		input:-webkit-autofill,
+		input:-webkit-autofill:hover, 
+		input:-webkit-autofill:focus
+		textarea:-webkit-autofill,
+		textarea:-webkit-autofill:hover
+		textarea:-webkit-autofill:focus,
+		select:-webkit-autofill,
+		select:-webkit-autofill:hover,
+		select:-webkit-autofill:focus {
+		  border: none;
+		  -webkit-box-shadow: transparent;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="container">
+		<h1>Validação de Formulário</h1>
+
+		<form method="post" action="envia.php" name="contactForm" onsubmit="return validateForm()">
+			<div class="row">
+				<div class="col-md-4 col-md-offset-2">
+					<label>Nome:</label>
+					<input type="text" name="txtName" id="txtName" placeholder="Nome e Sobrenome*" autocomplete="off">
+				</div>
+
+				<div class="col-md-4">
+					<label>E-mail:</label>
+					<input type="text" name="txtEmail" id="txtEmail" placeholder="E-mail*" autocomplete="off">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4 col-md-offset-2">
+					<label>Telefone:</label>
+					<input type="text" name="txtTel" id="txtTel" maxlength="14" placeholder="Telefone*" autocomplete="off" data-mask="telephone" onkeypress="return Mask(this)">
+				</div>
+
+				<!-- <div class="col-md-4">
+					<label>Números:</label>
+					<select name="txtNumeros" id="txtNumeros">
+						<option value="">Número</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+					</select>
+				</div> -->
+			</div>
+
+			<!-- <div class="row">
+				<div class="col-md-4 col-md-offset-2">
+					<label class="check">
+						<input type="checkbox" name="check[]" value="check one">Check One
+					</label>
+
+					<label class="check">
+						<input type="checkbox" name="check[]" value="check two">Check Two
+					</label>
+
+					<label class="check">
+						<input type="checkbox" name="check[]" value="check two">Check Three
+					</label>
+				</div>
+			</div> -->
+
+			<div class="row">
+				<div class="col-md-2 col-md-offset-2">
+					<input type="submit" name="Enviar">
+				</div>
+			</div>
+		</form>	
+	</div>
+
+	<script type="text/javascript">
+
+		function Mask( obj ) {
+
+        	if(obj.getAttribute('data-mask') == 'telephone') {
+
+        		var telefone = obj;
+        		
+        		telefone.value = telefone.value.replace(/\D/g,'');
+        		telefone.value = telefone.value.replace(/^(\d{2})(\d)/g, '($1) $2');
+        		telefone.value = telefone.value.replace(/(\d{4})(\d)/, '$1-$2');
+
+        	}
+
+        	return telefone.value;
+
+        }
+		
+		function validateForm() {
+
+			// Criação das variáveis
+			var form = document.contactForm;
+			var name = document.contactForm.txtName;
+			var email = document.contactForm.txtEmail;
+			var telefone = document.contactForm.txtTel;
+			var numeros = document.contactForm.txtNumeros;
+			var checkboxes = document.getElementsByName('check[]');
+
+			// Validação do campo nome
+			if(name.value == '' || name.value == null || name.value.length < 3){
+				alert('Digite um nome válido!');
+				name.focus();
+				return false;
+			}
+
+			// Validação do campo e-mail
+			if(email.value.indexOf('@') == -1 || email.value.indexOf('.') == -1 || email.value == null || email.value.length < 5){
+				alert('Digite um e-mail válido!');
+				email.focus();;
+				return false;
+			}
+
+			// Validação do campo telefone
+			/*if( isNaN(telefone.value) ){
+				alert('Digite apenas números!');
+				telefone.focus();
+				mensagem = false;
+				return false;
+			}*/
+
+			if(telefone.value == '' || telefone.value == null || telefone.value.length < 14){
+				alert('Digite um telefone válido!');
+				telefone.focus();
+				return false;
+			}
+
+			//Validação do campo select
+			if(numeros.value == '' || numeros.value == null){
+				alert('Por favor, escolha uma das opções!');
+				numeros.focus();
+				return false;
+			}
+
+			//Validação do campo check
+			if(	checkboxes[0].checked == false &&
+				checkboxes[1].checked == false &&
+				checkboxes[2].checked == false ) {
+					alert('Ecolha uma das checkboxes');
+					return false;
+			}
+
+		}
+
+	</script>
+</body>
+</html>
