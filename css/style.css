@@ -1,0 +1,71 @@
+h1{
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+label{
+	display: block;
+}
+
+label.check{
+	display: block;
+	line-height: 1;
+	margin-bottom: 15px;
+}
+
+input,select{
+	width: 100%;
+	padding: 10px 8px;
+	margin-bottom: 20px;
+}
+
+select{
+	padding: 12px 8px;
+}
+
+input[type="submit"]{
+	padding: 8px 23px;
+    width: auto;
+    box-sizing: border-box;
+    border: none;
+    text-transform: uppercase;	
+}
+
+input[type="checkbox"]{
+	-webkit-appearance: none;
+	width: 0px;
+	height: 0px;
+	padding: 0px;
+	margin: 0px 25px 0px 0px;
+	font-size: 25px;
+	outline: none;
+}
+
+input[type="checkbox"]:focus {
+    outline: 0;
+}
+
+
+input[type="checkbox"]::before{
+	content: '▢';
+	color: #FF5722;
+}
+
+input[type="checkbox"]:checked::before{
+	content: '▢✓';
+	letter-spacing: -17px;
+}
+
+/* Remove os padrões de cores automático do Google */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: none;
+  -webkit-box-shadow: transparent;
+}

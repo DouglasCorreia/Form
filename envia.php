@@ -12,8 +12,8 @@ $mensagemHTML = "<p>De: " . $nome . "</p>
 <p>Telefone: " . $telefone . "</p>";
 
 // emails para quem será enviado o formulário
-$destino = "douglascorreia17@gmail.com";
-$assunto = "Contato pelo Site";
+$destino = "name@email.com";
+$assunto = "Assunto do e-mail";
  
 // É necessário indicar que o formato do e-mail é html
 $headers  = 'MIME-Version: 1.0' . "\r\n";
